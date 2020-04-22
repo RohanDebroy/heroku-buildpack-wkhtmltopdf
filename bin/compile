@@ -61,6 +61,6 @@ if [ ! -f "$DESTINATION/wkhtmltoimage" ]; then
         rm "$PACKAGE_NAME"
         rm -rf "$WKHTMLTOPDF_PATH_EXTRACT"
 
-        print 'wkhtmltopdf is successfully downloaded and extracted to /app/bin'
+        prints 'wkhtmltopdf is successfully downloaded and extracted to /app/bin'
     fi
 fi
