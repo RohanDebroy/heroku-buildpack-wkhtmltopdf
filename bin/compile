@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# bin/compile BUILD_DIR CACHE_DIR ENV_DIR
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+function prints() {
+  echo "-----> $*"
+}
+
+#Download stack specific binary of wkhtmltopdf.
+if [ "$STACK" = "cedar-14" ] || [ "$STACK" = "heroku-16" ]; then
+	WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz"
+	prints "Downloading binaries for Cedar-14 or Heroku-16"
+elif [ "$STACK" = "heroku-18" ];then
+	WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb"
+	prints "Downloading binaries for Heroku-18"
+fi
+#Done
+
+#Checking and updating the $WKHTMLTOPDF_URL from Aptfile
+if [ ! -d "$BUILD_DIR/Aptfile" ]; then
+    if [ ! $(cat $BUILD_DIR/Aptfile | grep -v -s -e '^#') == "" ]; then
+		prints "AptFile Found"
+    	prints "Reading data from Aptfile"
+        WKHTMLTOPDF_URL=$(cat $BUILD_DIR/Aptfile | grep -v -s -e '^#')
+    fi
+fi
+#DONE
+
+WKHTMLTOPDF_PATH_EXTRACT=$CACHE_DIR/wkhtmltox
+DESTINATION=$BUILD_DIR/bin
+PACKAGE_NAME=$CACHE_DIR/$(basename $WKHTMLTOPDF_URL) 
+
+# Move files to /app/bin
+if [ ! -f "$DESTINATION/wkhtmltoimage" ]; then
+
+	if [ ! -d "$DESTINATION" ]; then
+		mkdir -p "$DESTINATION"
+	fi
+
+    # Download and extract
+    if [ ! -d "$WKHTMLTOPDF_PATH_EXTRACT" ]; then
+        prints 'Downloading wkhtmltopdf'
+        prints $WKHTMLTOPDF_URL
+        mkdir -p $(dirname $PACKAGE_NAME)
+        wget --quiet --continue --output-document="$PACKAGE_NAME" "$WKHTMLTOPDF_URL"
+
+        prints 'Extracting wkhtmltopdf'
+        prints 'Moving wkhtmltopdf binaries to /app/bin'
+
+        if [[ $(basename $WKHTMLTOPDF_URL) == *deb ]]; then
+            dpkg -x "$PACKAGE_NAME" "$WKHTMLTOPDF_PATH_EXTRACT"
+            cp $WKHTMLTOPDF_PATH_EXTRACT/usr/local/bin/* $DESTINATION
+        else
+            tar --xz --extract --file "$PACKAGE_NAME" --directory "$CACHE_DIR"
+            cp $WKHTMLTOPDF_PATH_EXTRACT/bin/* $DESTINATION
+        fi
+
+        prints 'Deleting temporary data'
+        rm "$PACKAGE_NAME"
+        rm -rf "$WKHTMLTOPDF_PATH_EXTRACT"
+
+        print 'wkhtmltopdf is successfully downloaded and extracted to /app/bin'
+    fi
+fi
