@@ -9,12 +9,12 @@ function prints() {
 }
 
 #Download stack specific binary of wkhtmltopdf.
-if [ "$STACK" = "cedar-14" ] || [ "$STACK" = "heroku-16" ]; then
-	WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz"
-	prints "Downloading binaries for Cedar-14 or Heroku-16"
-elif [ "$STACK" = "heroku-18" ];then
+if [ "$STACK" = "heroku-18" ];then
 	WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb"
 	prints "Downloading binaries for Heroku-18"
+elif [ "$STACK" = "heroku-20" ];then
+	WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb"
+	prints "Downloading binaries for Heroku-20"
 fi
 #Done
 

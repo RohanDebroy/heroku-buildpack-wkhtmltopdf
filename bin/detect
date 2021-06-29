@@ -4,9 +4,9 @@
 BUILD_DIR=$1
 
 
-if [ "$STACK" = "cedar-14" ] || [ "$STACK" = "heroku-16" ] || [ "$STACK" = "heroku-18" ]; then
+if [ "$STACK" = "heroku-18" ] || [ "$STACK" = "heroku-20" ]; then
 	echo "wkhtmltopdf"
 else
-	echo "ERROR: wkhtmltopdf was tested only to work on cedar-14, heroku-16 and heroku-18 "
+	echo "ERROR: wkhtmltopdf was tested only to work on heroku-18 and heroku-20 stacks only."
 	exit 1
 fi
