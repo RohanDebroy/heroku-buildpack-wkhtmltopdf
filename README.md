@@ -27,7 +27,7 @@
 This buildpack downloads and extracts the most recent
 [wkhtmltopdf](https://wkhtmltopdf.org/) binaries and works on `heroku-18` and `heroku-20` stacks.
 
-- This buildpack downloads wkhtmltopdf v0.12.6-1 for `heroku-20` stack and v0.12.5 for `heroku-16` stack.
+- This buildpack downloads wkhtmltopdf v0.12.6-1 for `heroku-20` stack and v0.12.5 for `heroku-18` stack.
 - This buildpack may support future wkhtmltopdf binary releases(not tested yet) through Aptfile. 
 
 ## Changelog <a name = "changelog"></a>
@@ -38,6 +38,7 @@ This buildpack downloads and extracts the most recent
 - v2
     - Added support for `Heroku-20`
     - Removed support for `Cedar-14` and `heroku-16` as they reached end of life.
+
 ## Features <a name = "feature"></a>
 - Downloads wkhtmltopdf binaries from [wkhtmltopdf.org](http://wkhtmltopdf.org)
 - It doesnot add new environment variables or shell scripts.
