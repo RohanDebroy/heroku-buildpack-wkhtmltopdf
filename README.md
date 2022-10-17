@@ -8,7 +8,7 @@
 </div>
 
 I won't be maintaining this repo because of 2 reasons.
-- Heroku will stop providing free access to their services.
+- Heroku will stop providing free access to their services. So I won't be able to test the changes.
 - I don't get enough time to work on this.
 ---
 
