@@ -76,7 +76,6 @@ you can just execute `/app/bin/wkhtmltopdf ` and `/app/bin/wkhtmltoimage`  from 
 ## Acknowledgements <a name = "acknowledgement"></a>
 
 - All thanks to [heroku-buildpack-apt](https://github.com/ddollar/heroku-buildpack-apt) project.
-- Forgive me if I've used your code and forgot to mention you.
 
 ## License <a name="license"></a>
 MIT
