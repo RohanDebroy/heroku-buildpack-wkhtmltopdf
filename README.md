@@ -43,8 +43,8 @@ This buildpack downloads and extracts the
 ## Features <a name = "feature"></a>
 - Downloads wkhtmltopdf binaries from [wkhtmltopdf.org](http://wkhtmltopdf.org)
 - It doesnot add new environment variables or shell scripts.
-- Tested on both `heroku-20` and `heroku-18`stack images.
-- Added ability to specify custom or latest wkhtmltopdf package through [Aptfile](#aptfile) (Not Tested).
+- Tested on `heroku-22`, `heroku-20` and `heroku-18`stack images.
+- Added ability to specify custom or latest wkhtmltopdf package through [Aptfile](#aptfile).
 
 ## Getting Started <a name = "getting_started"></a>
 Just add the buildpack to your heroku app by executing:
