@@ -3,6 +3,7 @@
 
 BUILD_DIR=$1
 CACHE_DIR=$2
+WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb"
 
 function prints() {
   echo "-----> $*"
@@ -11,18 +12,16 @@ function prints() {
 #Download stack specific binary of wkhtmltopdf.
 if [ "$STACK" = "heroku-18" ];then
 	WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb"
-	prints "Downloading binaries for Heroku-18"
 elif [ "$STACK" = "heroku-20" ];then
 	WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb"
-	prints "Downloading binaries for Heroku-20"
 fi
 #Done
 
 #Checking and updating the $WKHTMLTOPDF_URL from Aptfile
-if [ ! -d "$BUILD_DIR/Aptfile" ]; then
+if [ -f "$BUILD_DIR/Aptfile" ]; then
     if [ ! $(cat $BUILD_DIR/Aptfile | grep -v -s -e '^#') == "" ]; then
-		prints "AptFile Found"
-    	prints "Reading data from Aptfile"
+	    prints "AptFile detected"
+	    prints "Using binary from Aptfile"
         WKHTMLTOPDF_URL=$(cat $BUILD_DIR/Aptfile | grep -v -s -e '^#')
     fi
 fi
@@ -42,7 +41,6 @@ if [ ! -f "$DESTINATION/wkhtmltoimage" ]; then
     # Download and extract
     if [ ! -d "$WKHTMLTOPDF_PATH_EXTRACT" ]; then
         prints 'Downloading wkhtmltopdf'
-        prints $WKHTMLTOPDF_URL
         mkdir -p $(dirname $PACKAGE_NAME)
         wget --quiet --continue --output-document="$PACKAGE_NAME" "$WKHTMLTOPDF_URL"
 

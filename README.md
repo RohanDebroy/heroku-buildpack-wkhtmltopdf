@@ -7,12 +7,6 @@
 
 </div>
 
-I won't be maintaining this repo because of 2 reasons.
-- Heroku will stop providing free access to their services. So I won't be able to test the changes.
-- I don't get enough time to work on this.
----
-
-
 ## 📝 Table of Contents
 
 - [About](#about)
@@ -27,11 +21,11 @@ I won't be maintaining this repo because of 2 reasons.
 
 ##  About <a name = "about"></a>
 
-This buildpack downloads and extracts the most recent
-[wkhtmltopdf](https://wkhtmltopdf.org/) binaries and works on `heroku-18` and `heroku-20` stacks.
+This buildpack downloads and extracts the
+[wkhtmltopdf](https://wkhtmltopdf.org/) binaries and works on `heroku-18`, `heroku-20` and `heroku-22` stacks.
 
-- This buildpack downloads wkhtmltopdf v0.12.6-1 for `heroku-20` stack and v0.12.5 for `heroku-18` stack.
-- This buildpack may support future wkhtmltopdf binary releases(not tested yet) through Aptfile. 
+- This buildpack downloads wkhtmltopdf v0.12.6.1-2 for `heroku-22`, v0.12.6-1 for `heroku-20` stack and v0.12.5 for `heroku-18` stack.
+- This buildpack can bypass stack detection if the url to the wkhtmltopdf binary is provided through Aptfile.
 
 ## Changelog <a name = "changelog"></a>
 - v1.0 (initial release)
@@ -41,6 +35,10 @@ This buildpack downloads and extracts the most recent
 - v2
     - Added support for `Heroku-20`
     - Removed support for `Cedar-14` and `heroku-16` as they reached end of life.
+
+- v3
+    - Added support for `Heroku-22`
+    - Added support for bypassing stack detection.
 
 ## Features <a name = "feature"></a>
 - Downloads wkhtmltopdf binaries from [wkhtmltopdf.org](http://wkhtmltopdf.org)
@@ -62,7 +60,7 @@ You can also force this buildpack to be the first Heroku process by using the
 heroku buildpacks:add --index=1 https://github.com/RohanDebroy/heroku-buildpack-wkhtmltopdf.git
 ```
 ### Aptfile(Optional) <a name="aptfile"></a>
-The <b>Aptfile</b> can be included in the parent directory of you app. If you add the latest or custom wkhtmltopdf binary download url to the aptfile as described below then the buildpack can download the version for you and it in to /app/bin folder of heroku.
+The <b>Aptfile</b> can be included in the parent directory of you app. If you add the latest or custom wkhtmltopdf binary download url to the aptfile as described below then the buildpack can bypass heroku stack detection and download the version for you.
 
     #filename should be "Aptfile" without quotes.
     # you can include links to specific .deb files or .tar.xz
