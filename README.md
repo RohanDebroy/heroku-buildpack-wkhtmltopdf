@@ -1,4 +1,4 @@
-<h1 align="center">heroku-buildpack-wkhtmltopdf [Not Maintained]</h3>
+<h1 align="center">heroku-buildpack-wkhtmltopdf</h3>
 
 <div align="center">
 
