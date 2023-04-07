@@ -12,7 +12,6 @@
 - [About](#about)
 - [Feature](#feature)
 - [Getting Started](#getting_started)
-- [Deployment](#deployment)
 - [Usage](#usage)
 - [Acknowledgements](#acknowledgement)
 - [License](#license)
@@ -44,7 +43,7 @@ This buildpack downloads and extracts the
 - Downloads wkhtmltopdf binaries from [wkhtmltopdf.org](http://wkhtmltopdf.org)
 - It doesnot add new environment variables or shell scripts.
 - Tested on `heroku-22`, `heroku-20` and `heroku-18`stack images.
-- Added ability to specify custom or latest wkhtmltopdf package through [Aptfile](#aptfile).
+- It allows you to specify a custom or the latest version of wkhtmltopdf package for your app on Heroku. [Aptfile](#aptfile).
 
 ## Getting Started <a name = "getting_started"></a>
 Just add the buildpack to your heroku app by executing:
@@ -60,12 +59,19 @@ You can also force this buildpack to be the first Heroku process by using the
 heroku buildpacks:add --index=1 https://github.com/RohanDebroy/heroku-buildpack-wkhtmltopdf.git
 ```
 ### Aptfile(Optional) <a name="aptfile"></a>
-The <b>Aptfile</b> can be included in the parent directory of you app. If you add the latest or custom wkhtmltopdf binary download url to the aptfile as described below then the buildpack can bypass heroku stack detection and download the version for you.
+To use a specific version of the wkhtmltopdf binary for your app on Heroku, you can include an `Aptfile` in the parent directory of your app. This file should contain the latest or custom download URL for the binary.
 
-    #filename should be "Aptfile" without quotes.
-    # you can include links to specific .deb files or .tar.xz
-    https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
-    
+By including the `Aptfile`, you can bypass Heroku's stack detection and ensure that the correct version of wkhtmltopdf is downloaded during the build process.
+
+Here are the steps to include an Aptfile in your app:
+
+- Create a file named "Aptfile" in the parent directory of your app.
+- Add the download URL for the version of wkhtmltopdf that you want to use to the Aptfile.
+- Commit the Aptfile to your app's Git repository.
+- Push the changes to Heroku.
+- Once you've completed these steps, Heroku will use the specified version of wkhtmltopdf during the build process for your app.
+
+### Warning: When using an Aptfile to specify the version of wkhtmltopdf for your app on Heroku, it's important to note that the Aptfile bypasses stack detection. This means that you need to make sure you are using the correct binary version for your Heroku stack.
 
 ## Usage <a name="usage"></a>
 
